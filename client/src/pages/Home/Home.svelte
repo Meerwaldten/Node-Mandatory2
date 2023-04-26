@@ -3,4 +3,19 @@
     import { BASE_URL } from "../store/globalStore";
 </script>
 
-<h1> You've successfully logged in! </h1>
+
+<div class="container">
+    <h1>Welcome to the site</h1>
+</div>
+
+
+
+
+<style>
+    .container {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    height: 100vh;
+  }
+</style>

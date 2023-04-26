@@ -16,6 +16,4 @@ const userScehema = new mongoose.Schema({
     }
 });
 
-//const user = mongoose.model("user", userScehema);
-
 export const userModel = mongoose.model("user", userScehema);
