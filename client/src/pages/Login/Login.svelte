@@ -1,15 +1,16 @@
 <script>
     import { navigate } from "svelte-navigator";
     import { BASE_URL } from "../store/globalStore.js";
+    import showToastify from "../store/Toastify.js";
 
     let username = '';
     let password = '';
     
     async function handleSubmit() {
       if (!username || !password) {
-        alert('Please fill in all fields');
-        return;
+        showToastify('Please fill in all fields');
       }
+
       
       const response = await fetch($BASE_URL + "/login", {
         method: 'POST',
@@ -20,11 +21,17 @@
       });
 
       if (response.ok) {
-        alert('Login successful, redirecting');
-        navigate("/");
+        const data = await response.json();
+        console.log(data);
+        showToastify("Login successful, redirecting");
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
       } else {
-        alert('Login failed, try again');
-        navigate("/login");
+        showToastify("Login failed, try again");
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       }
     }
 </script>

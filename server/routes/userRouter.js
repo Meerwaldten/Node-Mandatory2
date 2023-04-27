@@ -6,6 +6,15 @@ import nodemailer from "nodemailer";
 
 const router = express.Router();
 
+
+router.get("/loggedin", (req, res) => {
+        res.json({
+        name: req.session.name,
+        isAuth: req.session.isAuth
+        })
+       
+});
+
 router.post("/signup", async (req, res) => {
     const {email, username, password} = req.body;
     const user = await userModel.findOne({username});
@@ -43,6 +52,7 @@ router.post("/signup", async (req, res) => {
     }).catch(error => {
         return res.status(500).json({ error });
     })
+
     
     const newUser = new userModel({email: email, username: username, password: hashPassword});
     await newUser.save();
@@ -59,11 +69,11 @@ router.post("/login", async (req, res) => {
     const verifyPassword = await bcrypt.compare(password, user.password);
 
     if (!verifyPassword){
-        res.status(404).send({ message: "Wrong password"});
-    }else {
+        res.status(404).json({ message: "Wrong password"});
+    }else{
     req.session.name = user.username;
     req.session.isAuth = true;
-    return res.status(201).send({ message: "You've logged in"})
+    return res.status(201).json({ user })
 }});
 
 

@@ -2,8 +2,7 @@ import express from "express";
 import dotenv from "dotenv/config";
 import cors from "cors";
 import session from "express-session";
-import mongoose from "mongoose";
-import { error } from "console";
+import db from "./database/connection.js";
 
 const app = express();
 app.use(express.json());
@@ -14,21 +13,11 @@ app.use(cors({
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
 }));
 
-mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true})
-.then(() => {
-    console.log("Connected to Database");
-}).catch(() => {
-    console.log(error);
-});
-
-const db = mongoose.connection;
-db.on("error", error => console.log(error));
-db.once("open", () => console.log("Connected to mongoose."))
+db;
 
 import userRouter from "./routes/userRouter.js";
 app.use(userRouter);

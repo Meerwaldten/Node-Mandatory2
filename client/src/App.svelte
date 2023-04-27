@@ -15,12 +15,23 @@
     <Link to="/signup"> Signup </Link>
     <Link to="/logout"> Logout </Link>
   </nav>
-  <Route path="/" component={Home} />
-  <Route path="/login" component={Login} />
-  <Route path="/signup" component={Signup} />
-  <Route path="/logout" component={Logout} />
+  <Route path="/">
+    <Home/>
+  </Route>
+  <Route path="/login">
+    <Login/>
+  </Route>
+  <Route path="/signup">
+    <Signup/>
+  </Route>
+  <Route path="logout">
+    <Logout/>
+  </Route>
 </Router>
 </div>
+
+
+
 
 <style>
   .nav-container {
